@@ -15,16 +15,26 @@ void print_dynamic_array(int* arr, int logical_size, int actual_size)
 	}
 }
 
-void append_to_dynamic_array(int* arr, unsigned int* logical_size, unsigned int actual_size, int value)
+void append_to_dynamic_array(int *&arr, unsigned int* logical_size, unsigned int* actual_size, int value)
 {
-	if (*logical_size < actual_size)
+	if (*logical_size < *actual_size)
 	{
 		arr[*logical_size] = value;
 		(*logical_size)++;
 	}
 	else
 	{
-
+		int old_size = *actual_size;
+		(*actual_size) *= 2;
+		int* new_arr = new int[*actual_size];
+		for (int i = 0; i < old_size; i++)
+		{
+			new_arr[i] = arr[i];
+		}
+		delete[] arr;
+		arr = new_arr;
+		arr[*logical_size] = value;
+		(*logical_size)++;
 	}
 }
 
@@ -60,7 +70,7 @@ int main(int argc, char** argv)
 		{
 			break;
 		}
-		append_to_dynamic_array(arr, &logical_size, actual_size, value_add);
+		append_to_dynamic_array(arr, &logical_size, &actual_size, value_add);
 		printf("Динамический массив: ");
 		print_dynamic_array(arr, logical_size, actual_size);
 	}

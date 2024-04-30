@@ -15,18 +15,26 @@ void print_dynamic_array(int* arr, int logical_size, int actual_size)
 	}
 }
 
-void append_to_dynamic_array(int* arr, int logical_size, int actual_size, int value)
+void append_to_dynamic_array(int* arr, unsigned int* logical_size, unsigned int actual_size, int value)
 {
+	if (*logical_size < actual_size)
+	{
+		arr[*logical_size] = value;
+		(*logical_size)++;
+	}
+	else
+	{
 
+	}
 }
 
 int main(int argc, char** argv)
 {
 	setlocale(LC_ALL, "ru");
 	unsigned int actual_size = 0;
-	unsigned int logical_size = 0;
 	printf("¬ведите фактичеcкий размер массива: ");
 	std::cin >> actual_size;
+	unsigned int logical_size = 0;
 	printf("¬ведите логический размер массива: ");
 	std::cin >> logical_size;
 	if (logical_size > actual_size)
@@ -46,13 +54,13 @@ int main(int argc, char** argv)
 	int value_add = -1;
 	while (true)
 	{
-		printf("¬ведите элемент дл€ добавлени€: ");
+		printf("\n¬ведите элемент дл€ добавлени€: ");
 		std::cin >> value_add;
 		if (value_add == 0)
 		{
 			break;
 		}
-		append_to_dynamic_array(arr, logical_size, actual_size, value_add);
+		append_to_dynamic_array(arr, &logical_size, actual_size, value_add);
 		printf("ƒинамический массив: ");
 		print_dynamic_array(arr, logical_size, actual_size);
 	}

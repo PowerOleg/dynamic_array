@@ -15,6 +15,11 @@ void print_dynamic_array(int* arr, int logical_size, int actual_size)
 	}
 }
 
+void append_to_dynamic_array(int* arr, int logical_size, int actual_size, int value)
+{
+
+}
+
 int main(int argc, char** argv)
 {
 	setlocale(LC_ALL, "ru");
@@ -36,6 +41,23 @@ int main(int argc, char** argv)
 		printf("Введите arr[%d]: ", i);
 		std::cin >> arr[i];
 	}
+	printf("Динамический массив: ");
+	print_dynamic_array(arr, logical_size, actual_size);
+	int value_add = -1;
+	while (true)
+	{
+		printf("Введите элемент для добавления: ");
+		std::cin >> value_add;
+		if (value_add == 0)
+		{
+			break;
+		}
+		append_to_dynamic_array(arr, logical_size, actual_size, value_add);
+		printf("Динамический массив: ");
+		print_dynamic_array(arr, logical_size, actual_size);
+	}
+	
+	printf("Спасибо! Ваш массив: ");
 	print_dynamic_array(arr, logical_size, actual_size);
 
 	delete[] arr;

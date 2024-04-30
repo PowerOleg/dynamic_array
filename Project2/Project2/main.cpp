@@ -13,6 +13,10 @@ void print_dynamic_array(int* arr, int logical_size, int actual_size)
 		printf("_");
 		printf(" ");
 	}
+	if (logical_size == 0 && arr[0] == '_')
+	{
+		
+	}
 }
 
 void remove_dynamic_array_head(int *&arr, unsigned int* logical_size, unsigned int* actual_size)
@@ -29,7 +33,25 @@ void remove_dynamic_array_head(int *&arr, unsigned int* logical_size, unsigned i
 	}
 	else
 	{
-
+		int new_size = static_cast<int>(actual_double);
+		if (new_size == 0)
+		{
+			(*logical_size) = 0;
+			return;
+		}
+		else
+		{
+			int* new_arr = new int[new_size];
+			for (int i = 0, j = 1; i < (*logical_size) - 1; i++, j++)
+			{
+				new_arr[i] = arr[j];									//тут можно упасть
+			}
+			(*logical_size)--;
+			(*actual_size) = new_size;
+			delete[] arr;
+			arr = new_arr;
+		}
+		
 	}
 
 }
@@ -68,6 +90,11 @@ int main(int argc, char** argv)
 		} 
 		else if (is_delete.length() == 2)
 		{
+			if (logical_size == 0)
+			{
+				printf("Невозможно удалить первый элемент, так как массив пустой. До свидания!");
+				return 2;
+			}
 			remove_dynamic_array_head(arr, &logical_size, &actual_size);
 			printf("Динамический массив: ");
 			print_dynamic_array(arr, logical_size, actual_size);
